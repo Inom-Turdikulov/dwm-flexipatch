@@ -7,7 +7,7 @@
 static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const int corner_radius           = 10;
 #else
-static const unsigned int borderpx       = 1;   /* border pixel of windows */
+static const unsigned int borderpx       = 2;   /* border pixel of windows */
 #endif // ROUNDED_CORNERS_PATCH
 #if BAR_BORDER_PATCH
 /* This allows the bar border size to be explicitly set separately from borderpx.
@@ -58,7 +58,7 @@ static const int showtab                 = showtab_auto;        /* Default tab b
 static const int toptab                  = False;               /* False means bottom tab bar */
 #endif // TAB_PATCH
 #if BAR_HEIGHT_PATCH
-static const int bar_height              = 0;   /* 0 means derive from font, >= 1 explicit height */
+static const int bar_height              = 32;   /* 0 means derive from font, >= 1 explicit height */
 #endif // BAR_HEIGHT_PATCH
 #if BAR_PADDING_PATCH
 static const int vertpad                 = 10;  /* vertical padding of bar */
@@ -411,7 +411,7 @@ static const char *const autostart[] = {
 #if RENAMED_SCRATCHPADS_PATCH
 static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 #elif SCRATCHPADS_PATCH
-const char *spcmd1[] = {"kitty", "--class", "dropdown", NULL };
+const char *spcmd1[] = {"xst", "-c", "dropdown", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
@@ -935,20 +935,18 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
-	{ MODKEY|ControlMask,           XK_p,          spawn,                  SHCMD("kitty --class sway-launcher sway-launcher-desktop") },
 	{ MODKEY|ShiftMask,             XK_p,          spawn,                  {.v = (const char*[]){ "passmenu", "-fn", dmenufont, "-p", "🔑", NULL } } },
 	    /* Tooglle layout by Meta+Space */
 	    { Mod1Mask,                     XK_space,   spawn,          SHCMD("(setxkbmap -query | grep -q \"layout:     us\") && setxkbmap ru || setxkbmap us -variant colemak_dh && pkill -SIGUSR1 dwmblocks") },
 	    { Mod1Mask|ShiftMask,           XK_space,   spawn,          SHCMD("(setxkbmap -query | grep -q \"layout:     us\") && setxkbmap ru || setxkbmap us && pkill -SIGUSR1 dwmblocks") },
 	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER") },
 	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("goldendict & crow") },
-	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("zeal & kitty --class tgpt -e tgpt -m") },
 	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("slack & telegram-desktop") },
 	{ Mod1Mask|ShiftMask,           XK_6,       spawn,          SHCMD("krita") },
 	{ Mod1Mask|ShiftMask,           XK_7,       spawn,          SHCMD("obsidian") },
-	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("kitty --class steam -e steam") },
+	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("steam") },
 	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("play_audio.sh") },
-	{ Mod1Mask|ShiftMask,           XK_F1,       spawn,         SHCMD("kitty --class scrcpy --hold -e scrcpy -f") },
+	{ Mod1Mask|ShiftMask,           XK_F1,       spawn,         SHCMD("xst -c scrcpy -e scrcpy -f") },
 	{ MODKEY,                       XK_a,      spawn,          {.v = (const char*[]){ "dmenu-active-programs", NULL } } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = (const char*[]){ "dmenu-unicode", NULL } } },
 	{ MODKEY|ControlMask,           XK_n,      spawn,          SHCMD("dnd && pkill -SIGUSR1 dwmblocks") },
