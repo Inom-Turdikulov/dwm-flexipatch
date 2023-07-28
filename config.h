@@ -936,26 +936,12 @@ static const Key keys[] = {
 	#endif // KEYMODES_PATCH
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_p,          spawn,                  {.v = (const char*[]){ "passmenu", "-fn", dmenufont, "-p", "🔑", NULL } } },
-	    /* Tooglle layout by Meta+Space */
-	    { Mod1Mask,                     XK_space,   spawn,          SHCMD("(setxkbmap -query | grep -q \"layout:     us\") && setxkbmap ru || setxkbmap us -variant colemak_dh && pkill -SIGUSR1 dwmblocks") },
-	    { Mod1Mask|ShiftMask,           XK_space,   spawn,          SHCMD("(setxkbmap -query | grep -q \"layout:     us\") && setxkbmap ru || setxkbmap us && pkill -SIGUSR1 dwmblocks") },
+	/* Tooglle layout by Meta+Space */
 	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER") },
-	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("goldendict & crow") },
-	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("slack & telegram-desktop") },
-	{ Mod1Mask|ShiftMask,           XK_6,       spawn,          SHCMD("krita") },
-	{ Mod1Mask|ShiftMask,           XK_7,       spawn,          SHCMD("obsidian") },
-	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("steam") },
-	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("play_audio.sh") },
-	{ Mod1Mask|ShiftMask,           XK_F1,       spawn,         SHCMD("xst -c scrcpy -e scrcpy -f") },
-	{ MODKEY,                       XK_a,      spawn,          {.v = (const char*[]){ "dmenu-active-programs", NULL } } },
-	{ MODKEY,                       XK_u,      spawn,          {.v = (const char*[]){ "dmenu-unicode", NULL } } },
-	{ MODKEY|ControlMask,           XK_n,      spawn,          SHCMD("dnd && pkill -SIGUSR1 dwmblocks") },
-	{ MODKEY|ControlMask,           XK_m,      spawn,          SHCMD("mailsync && notify-send 'Mail synced'") },
+	{ MODKEY,                       XK_a,      spawn,          {.v = (const char*[]){ "dmenu_active_programs", NULL } } },
+	{ MODKEY,                       XK_u,      spawn,          {.v = (const char*[]){ "dmenu_unicode", NULL } } },
+
 	{ MODKEY,                       XK_v,      spawn,          SHCMD("greenclip print | grep . | dmenu -i -l 10 -p 📋 | xargs -r -d'\n' -I '{}' greenclip print '{}'") },
-
-
-	{ MODKEY|ControlMask|ShiftMask, XK_Delete,	spawn,		SHCMD("dmenu-power") },
-	{ MODKEY|ControlMask|ShiftMask, XK_w,	spawn,		SHCMD("display-fix.sh") },
 	{ 0,				XK_Print,	spawn,		SHCMD("maim -s | xclip -selection clipboard -t image/png && notify-send 'Copied selection of screenshoot'") },
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("export SCREENSHOOT_NAME=~/Pictures/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png; maim $SCREENSHOOT_NAME; notify-send \"Saved new screenshoot $SCREENSHOOT_NAME\"; echo $SCREENSHOOT_NAME|xclip -selection clipboard") },
 	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png && notify-send 'Copied active window screenshoot'") },
@@ -968,12 +954,11 @@ static const Key keys[] = {
 	// { MODKEY|ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("xdotool search --classname scrcpy  key Right") },
 	// { MODKEY|ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("xdotool search --classname scrcpy  key Left") },
 
-	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p mpv play-pause") },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 5 && pkill -SIGUSR1 dwmblocks") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 5 && pkill -SIGUSR1 dwmblocks") },
-	{ ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p mpv next") },
-	{ ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p mpv previous") },
-
+	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p psst play-pause") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") },
+	{ ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p psst next") },
+	{ ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p psst previous") },
 
 	/* MPV */
 	{ MODKEY|ShiftMask|ControlMask,         XF86XK_AudioPlay,       spawn,  SHCMD("mpv-fzf.sh") },
