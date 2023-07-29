@@ -411,7 +411,7 @@ static const char *const autostart[] = {
 #if RENAMED_SCRATCHPADS_PATCH
 static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 #elif SCRATCHPADS_PATCH
-const char *spcmd1[] = {"xst", "-c", "dropdown", NULL };
+const char *spcmd1[] = {"scratch", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
@@ -499,39 +499,14 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-
-	RULE(.class = "imv", .isfloating = 1)
-	    RULE(.title = "win528", .isfloating = 1, .floatpos = "9999x 9999y 496W 700H")
-
-	// We utilize only 6 tags, so we can use the rest for any other windows
-	RULE(.instance = "chromium", .tags = 1 << 1, .switchtag = 1)
-
-	RULE(.class = "GoldenDict", .tags = 1 << 2, .switchtag = 1)
-	RULE(.class = "task", .tags = 1 << 2, .switchtag = 1)
-	RULE(.class = "Crow Translate", .tags = 1 << 2, .switchtag = 1)
-
-	RULE(.class = "Zeal", .tags = 1 << 3, .switchtag = 1)
-	RULE(.class = "tgpt", .tags = 1 << 3, .switchtag = 1)
-
-
-	RULE(.class = "TelegramDesktop", .tags = 1 << 4, .switchtag = 1)
-	RULE(.class = "Slack", .tags = 1 << 4, .switchtag = 1)
-
-	RULE(.instance = "krita", .tags = 1 << 5, .switchtag = 1)
-
-	RULE(.class = "obsidian", .tags = 1 << 6, .switchtag = 1)
-
-	RULE(.instance = "steam", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "parsecd", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "Virt-manager", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "scrcpy", .tags = 1 << 7, .switchtag = 1)
-
-	RULE(.instance = "audio_player", .tags = 1 << 8, .switchtag = 1)
+	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1)
+	RULE(.instance = "brave-browser", .tags = 1 << 1, .switchtag = 1)
+	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
+	RULE(.instance = "steam", .tags = 1 << 6, .switchtag = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.title = "Picture in picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
-	RULE(.class = "sway-launcher", .isfloating = 1, .floatpos = "0x 20y 800W 600H")
-	RULE(.class = "dropdown", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1024W 768H")
+	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1024W 768H")
 
 	#if RENAMED_SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
@@ -889,18 +864,9 @@ static const char *xkb_layouts[]  = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 #endif // NODMENU_PATCH
 static const char *dmenucmd[] = {
-	"dmenu_run",
-	#if !NODMENU_PATCH
-	"-m", dmenumon,
-	#endif // NODMENU_PATCH
-	"-fn", dmenufont,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
-	#if BAR_DMENUMATCHTOP_PATCH
-	topbar ? NULL : "-b",
-	#endif // BAR_DMENUMATCHTOP_PATCH
+	"/bin/sh",
+	"-c",
+	"$DOTFILES_BIN/rofi/appmenu",
 	NULL
 };
 static const char *termcmd[]  = { "/bin/sh", "-c", "xst", NULL };
@@ -934,36 +900,39 @@ static const Key keys[] = {
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
-	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_p,          spawn,                  {.v = (const char*[]){ "passmenu", "-fn", dmenufont, "-p", "🔑", NULL } } },
+	{ MODKEY,                       XK_space,          spawn,                  {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
+	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	/* Tooglle layout by Meta+Space */
 	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER") },
-	{ MODKEY,                       XK_a,      spawn,          {.v = (const char*[]){ "dmenu_active_programs", NULL } } },
-	{ MODKEY,                       XK_u,      spawn,          {.v = (const char*[]){ "dmenu_unicode", NULL } } },
+	{ Mod1Mask|ShiftMask,           XK_7,       spawn,          SHCMD("steam") },
+	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("slack") },
+	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("xst -c ncspot -e ncspot") },
+	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
+	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
+	{ MODKEY,                       XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
 
-	{ MODKEY,                       XK_v,      spawn,          SHCMD("greenclip print | grep . | dmenu -i -l 10 -p 📋 | xargs -r -d'\n' -I '{}' greenclip print '{}'") },
-	{ 0,				XK_Print,	spawn,		SHCMD("maim -s | xclip -selection clipboard -t image/png && notify-send 'Copied selection of screenshoot'") },
-	{ MODKEY,			XK_Print,	spawn,		SHCMD("export SCREENSHOOT_NAME=~/Pictures/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png; maim $SCREENSHOOT_NAME; notify-send \"Saved new screenshoot $SCREENSHOOT_NAME\"; echo $SCREENSHOOT_NAME|xclip -selection clipboard") },
-	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png && notify-send 'Copied active window screenshoot'") },
-	{ MODKEY|ControlMask, XK_Print,	spawn,		SHCMD("xclip -selection c -o|imgur && notify-send 'Uploaded to imgur'") },
-    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
+	{ 0,				XK_Print,	spawn,		SHCMD("scrcap") },
+	{ MODKEY,			XK_Print,	spawn,		SHCMD("scrrec -s ~/recordings/$(date +%F-%T).mp4") },
+	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("scrrec -s ~/recordings/$(date +%F-%T).gif") },
 
-
-	/* scrcpy remote */
-	{ MODKEY|ShiftMask, XF86XK_AudioPlay,        spawn, SHCMD("speak.sh") },
+ //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
+	//
+	// /* scrcpy remote */
+	// { MODKEY|ShiftMask, XF86XK_AudioPlay,        spawn, SHCMD("speak.sh") },
 	// { MODKEY|ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("xdotool search --classname scrcpy  key Right") },
 	// { MODKEY|ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("xdotool search --classname scrcpy  key Left") },
 
-	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p psst play-pause") },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") },
-	{ ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p psst next") },
-	{ ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p psst previous") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 
-	/* MPV */
-	{ MODKEY|ShiftMask|ControlMask,         XF86XK_AudioPlay,       spawn,  SHCMD("mpv-fzf.sh") },
+	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p ncspot play-pause") },
+	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p ncspot next") },
+	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p ncspot previous") },
 
-	{ Mod1Mask|ShiftMask,           XK_Return,     spawn,                  {.v = termcmd } },
+	{ MODKEY,                       XK_Return,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
+	{ MODKEY|ControlMask,           XK_Return,     spawn,                  {.v = termcmd } },
+	{ MODKEY|ShiftMask|ControlMask, XK_Return,     spawn,                  SHCMD("xterm") },
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
@@ -1149,7 +1118,7 @@ static const Key keys[] = {
 	{ MODKEY|Mod5Mask|Mod1Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
 	{ MODKEY|ControlMask,           XK_Return,     mirrorlayout,           {0} },          /* flextile, flip master and stack areas */
 	#endif // FLEXTILE_DELUXE_LAYOUT
-	{ MODKEY,                       XK_space,      setlayout,              {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 	#if MAXIMIZE_PATCH
 	{ MODKEY|ControlMask|ShiftMask, XK_h,          togglehorizontalmax,    {0} },
