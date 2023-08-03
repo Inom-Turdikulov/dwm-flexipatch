@@ -927,6 +927,7 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 
 	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p ncspot play-pause") },
+	{ MODKEY, XF86XK_AudioPlay,        spawn, SHCMD("piper_speak") },
 	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p ncspot next") },
 	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p ncspot previous") },
 
