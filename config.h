@@ -930,7 +930,7 @@ static const Key keys[] = {
 	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p ncspot next") },
 	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p ncspot previous") },
 
-	{ MODKEY,                       XK_Return,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
+	{ Mod1Mask|ShiftMask,                     XK_Return,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
 	{ MODKEY|ControlMask,           XK_Return,     spawn,                  {.v = termcmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_Return,     spawn,                  SHCMD("xterm") },
 	#if RIODRAW_PATCH
