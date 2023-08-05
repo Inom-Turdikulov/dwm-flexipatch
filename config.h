@@ -913,7 +913,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	/* Tooglle layout by Meta+Space */
 	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER & xst -c newsboat -e newsboat") },
-	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("xst -c chatgpt -e chatgpt & xst -c trans -e trans -shell en:ru") },
+	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("xst -c chatgpt -e chatgpt & xst -c trans -e trans -shell ru:en") },
 	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("xst -c wiki -e nvim ~/Projects/main/wiki/now.md") },
 	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("krita") },
 	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("slack") },
