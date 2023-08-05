@@ -7,7 +7,7 @@
 static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const int corner_radius           = 10;
 #else
-static const unsigned int borderpx       = 1;   /* border pixel of windows */
+static const unsigned int borderpx       = 2;   /* border pixel of windows */
 #endif // ROUNDED_CORNERS_PATCH
 #if BAR_BORDER_PATCH
 /* This allows the bar border size to be explicitly set separately from borderpx.
@@ -508,10 +508,13 @@ static const Rule rules[] = {
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
 	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1,
          .isfloating = 1, .floatpos = "100% -1y 400W 100%")
+	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
+	RULE(.class = "mpv", .isfloating = 1, .floatpos = "0x 0y 1024W 768W")
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.title = "Picture in picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1024W 768H")
+
 
 	#if RENAMED_SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
@@ -914,7 +917,7 @@ static const Key keys[] = {
 	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("xst -c wiki -e nvim ~/Projects/main/wiki/now.md") },
 	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("krita") },
 	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("slack") },
-	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("xst -c ncspot -e ncspot") },
+	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("xst -c ncspot -e ncspot & xst -c weechat -e weechat") },
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
 	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
 	{ MODKEY,                       XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
