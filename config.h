@@ -1276,42 +1276,42 @@ static const Key keys[] = {
 	/* Note that due to key limitations the below example kybindings are defined with a Mod3Mask,
 	 * which is not always readily available. Refer to the patch wiki for more details. */
 	/* Client position is limited to monitor window area */
-	{ Mod3Mask,                     XK_q,            floatpos,               {.v = "-26x -26y" } }, // ↖
-	{ Mod3Mask,                     XK_w,            floatpos,               {.v = "  0x -26y" } }, // ↑
-	{ Mod3Mask,                     XK_f,            floatpos,               {.v = " 26x -26y" } }, // ↗
-	{ Mod3Mask,                     XK_a,            floatpos,               {.v = "-26x   0y" } }, // ←
-	{ Mod3Mask,                     XK_s,            floatpos,               {.v = " 26x   0y" } }, // →
+	{ Mod3Mask,                     XK_w,            floatpos,               {.v = "-26x -26y" } }, // ↖
+	{ Mod3Mask,                     XK_f,            floatpos,               {.v = "  0x -26y" } }, // ↑
+	{ Mod3Mask,                     XK_p,            floatpos,               {.v = " 26x -26y" } }, // ↗
+	{ Mod3Mask,                     XK_r,            floatpos,               {.v = "-26x   0y" } }, // ←
+	{ Mod3Mask,                     XK_t,            floatpos,               {.v = " 26x   0y" } }, // →
 	{ Mod3Mask,                     XK_x,            floatpos,               {.v = "-26x  26y" } }, // ↙
-	{ Mod3Mask,                     XK_r,            floatpos,               {.v = "  0x  26y" } }, // ↓
+	{ Mod3Mask,                     XK_s,            floatpos,               {.v = "  0x  26y" } }, // ↓
 	{ Mod3Mask,                     XK_d,            floatpos,               {.v = " 26x  26y" } }, // ↘
 	/* Absolute positioning (allows moving windows between monitors) */
-	{ Mod3Mask|ControlMask,         XK_q,            floatpos,               {.v = "-26a -26a" } }, // ↖
-	{ Mod3Mask|ControlMask,         XK_w,            floatpos,               {.v = "  0a -26a" } }, // ↑
-	{ Mod3Mask|ControlMask,         XK_f,            floatpos,               {.v = " 26a -26a" } }, // ↗
-	{ Mod3Mask|ControlMask,         XK_a,            floatpos,               {.v = "-26a   0a" } }, // ←
-	{ Mod3Mask|ControlMask,         XK_s,            floatpos,               {.v = " 26a   0a" } }, // →
+	{ Mod3Mask|ControlMask,         XK_w,            floatpos,               {.v = "-26a -26a" } }, // ↖
+	{ Mod3Mask|ControlMask,         XK_f,            floatpos,               {.v = "  0a -26a" } }, // ↑
+	{ Mod3Mask|ControlMask,         XK_p,            floatpos,               {.v = " 26a -26a" } }, // ↗
+	{ Mod3Mask|ControlMask,         XK_r,            floatpos,               {.v = "-26a   0a" } }, // ←
+	{ Mod3Mask|ControlMask,         XK_t,            floatpos,               {.v = " 26a   0a" } }, // →
 	{ Mod3Mask|ControlMask,         XK_x,            floatpos,               {.v = "-26a  26a" } }, // ↙
-	{ Mod3Mask|ControlMask,         XK_r,            floatpos,               {.v = "  0a  26a" } }, // ↓
+	{ Mod3Mask|ControlMask,         XK_s,            floatpos,               {.v = "  0a  26a" } }, // ↓
 	{ Mod3Mask|ControlMask,         XK_d,            floatpos,               {.v = " 26a  26a" } }, // ↘
 	/* Resize client, client center position is fixed which means that client expands in all directions */
-	{ Mod3Mask|ShiftMask,           XK_q,            floatpos,               {.v = "-26w -26h" } }, // ↖
-	{ Mod3Mask|ShiftMask,           XK_w,            floatpos,               {.v = "  0w -26h" } }, // ↑
-	{ Mod3Mask|ShiftMask,           XK_f,            floatpos,               {.v = " 26w -26h" } }, // ↗
-	{ Mod3Mask|ShiftMask,           XK_a,            floatpos,               {.v = "-26w   0h" } }, // ←
+	{ Mod3Mask|ShiftMask,           XK_w,            floatpos,               {.v = "-26w -26h" } }, // ↖
+	{ Mod3Mask|ShiftMask,           XK_f,            floatpos,               {.v = "  0w -26h" } }, // ↑
+	{ Mod3Mask|ShiftMask,           XK_p,            floatpos,               {.v = " 26w -26h" } }, // ↗
+	{ Mod3Mask|ShiftMask,           XK_r,            floatpos,               {.v = "-26w   0h" } }, // ←
 	{ Mod3Mask|ShiftMask,           XK_c,            floatpos,               {.v = "800W 800H" } }, // ·
-	{ Mod3Mask|ShiftMask,           XK_s,            floatpos,               {.v = " 26w   0h" } }, // →
+	{ Mod3Mask|ShiftMask,           XK_t,            floatpos,               {.v = " 26w   0h" } }, // →
 	{ Mod3Mask|ShiftMask,           XK_x,            floatpos,               {.v = "-26w  26h" } }, // ↙
-	{ Mod3Mask|ShiftMask,           XK_r,            floatpos,               {.v = "  0w  26h" } }, // ↓
+	{ Mod3Mask|ShiftMask,           XK_s,            floatpos,               {.v = "  0w  26h" } }, // ↓
 	{ Mod3Mask|ShiftMask,           XK_d,            floatpos,               {.v = " 26w  26h" } }, // ↘
 	/* Client is positioned in a floating grid, movement is relative to client's current position */
-	{ Mod3Mask|Mod1Mask,            XK_q,            floatpos,               {.v = "-1p -1p" } }, // ↖
-	{ Mod3Mask|Mod1Mask,            XK_w,            floatpos,               {.v = " 0p -1p" } }, // ↑
-	{ Mod3Mask|Mod1Mask,            XK_f,            floatpos,               {.v = " 1p -1p" } }, // ↗
-	{ Mod3Mask|Mod1Mask,            XK_a,            floatpos,               {.v = "-1p  0p" } }, // ←
+	{ Mod3Mask|Mod1Mask,            XK_w,            floatpos,               {.v = "-1p -1p" } }, // ↖
+	{ Mod3Mask|Mod1Mask,            XK_f,            floatpos,               {.v = " 0p -1p" } }, // ↑
+	{ Mod3Mask|Mod1Mask,            XK_p,            floatpos,               {.v = " 1p -1p" } }, // ↗
+	{ Mod3Mask|Mod1Mask,            XK_r,            floatpos,               {.v = "-1p  0p" } }, // ←
 	{ Mod3Mask|Mod1Mask,            XK_c,            floatpos,               {.v = " 0p  0p" } }, // ·
-	{ Mod3Mask|Mod1Mask,            XK_s,            floatpos,               {.v = " 1p  0p" } }, // →
+	{ Mod3Mask|Mod1Mask,            XK_t,            floatpos,               {.v = " 1p  0p" } }, // →
 	{ Mod3Mask|Mod1Mask,            XK_x,            floatpos,               {.v = "-1p  1p" } }, // ↙
-	{ Mod3Mask|Mod1Mask,            XK_r,            floatpos,               {.v = " 0p  1p" } }, // ↓
+	{ Mod3Mask|Mod1Mask,            XK_s,            floatpos,               {.v = " 0p  1p" } }, // ↓
 	{ Mod3Mask|Mod1Mask,            XK_d,            floatpos,               {.v = " 1p  1p" } }, // ↘
 	#endif // FLOATPOS_PATCH
 	#if SETBORDERPX_PATCH
