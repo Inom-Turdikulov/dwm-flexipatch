@@ -509,7 +509,7 @@ static const Rule rules[] = {
 	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1,
          .isfloating = 1, .floatpos = "100% -1y 400W 100%")
 	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
-	RULE(.class = "mpv", .isfloating = 1, .floatpos = "0x 0y 1024W 768W")
+	RULE(.class = "mpv", .isfloating = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.title = "Picture in picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
