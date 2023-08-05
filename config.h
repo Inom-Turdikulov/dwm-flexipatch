@@ -173,7 +173,7 @@ static char c000000[]                    = "#000000"; // placeholder value
 static char normfgcolor[]                = "#bbbbbb";
 static char normbgcolor[]                = "#222222";
 static char normbordercolor[]            = "#282c34";
-static char normfloatcolor[]             = "#282c34";
+static char normfloatcolor[]             = "#7d899f";
 
 static char selfgcolor[]                 = "#eeeeee";
 static char selbgcolor[]                 = "#005577";
@@ -499,10 +499,15 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1)
 	RULE(.instance = "brave-browser", .tags = 1 << 1, .switchtag = 1)
+	RULE(.class = "newsboat", .tags = 1 << 1, .switchtag = 1)
+	RULE(.class = "chatgpt", .tags = 1 << 2, .switchtag = 1)
+	RULE(.class = "trans", .tags = 1 << 2, .switchtag = 1)
+	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
+	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
-	RULE(.instance = "steam", .tags = 1 << 6, .switchtag = 1)
+	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1,
+         .isfloating = 1, .floatpos = "100% -1y 400W 100%")
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.title = "Picture in picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
@@ -904,8 +909,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	/* Tooglle layout by Meta+Space */
-	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER") },
-	{ Mod1Mask|ShiftMask,           XK_7,       spawn,          SHCMD("steam") },
+	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER & xst -c newsboat -e newsboat") },
+	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("xst -c chatgpt -e chatgpt & xst -c trans -e trans -shell en:ru") },
+	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("xst -c wiki -e nvim ~/Projects/main/wiki/now.md") },
+	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("krita") },
 	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("slack") },
 	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("xst -c ncspot -e ncspot") },
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
