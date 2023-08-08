@@ -342,7 +342,7 @@
  * and the bar will now overlay the display.
  * http://dwm.suckless.org/patches/holdbar/
  */
-#define BAR_HOLDBAR_PATCH 0
+#define BAR_HOLDBAR_PATCH 1
 
 /* Sometimes dwm crashes when it cannot render some glyphs in window titles (usually emoji).
  * This patch is essentially a hack to ignore any errors when drawing text on the status bar.
@@ -1376,7 +1376,7 @@
  * the float border color, awesomebar, urgentborder and titlecolor patches.
  * https://dwm.suckless.org/patches/xrdb/
  */
-#define XRDB_PATCH 1
+#define XRDB_PATCH 0
 
 /* Simple patch that allows floating windows to be zoomed into the master stack position.
  * https://www.reddit.com/r/suckless/comments/ie5fe3/zoomfloating_my_own_simple_original_patch/

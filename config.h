@@ -506,6 +506,7 @@ static const Rule rules[] = {
 	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
+	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
 	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1,
          .isfloating = 1, .floatpos = "100% -1y 400W 100%")
 	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
@@ -861,7 +862,7 @@ static const char *xkb_layouts[]  = {
 #endif // STACKER_PATCH
 
 #if BAR_HOLDBAR_PATCH
-#define HOLDKEY 0 // replace 0 with the keysym to activate holdbar
+#define HOLDKEY XF86XK_Launch5 // replace 0 with the keysym to activate holdbar
 #endif // BAR_HOLDBAR_PATCH
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -913,10 +914,10 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	/* Tooglle layout by Meta+Space */
 	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER & xst -c newsboat -e newsboat") },
-	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("xst -c chatgpt -e chatgpt & xst -c trans -e trans -shell ru:en") },
-	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("xst -c wiki -e nvim ~/Projects/main/wiki/now.md") },
+	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("xst -c trans -e trans -shell ru:en & sleep 1 && xst -c chatgpt -e chatgpt") },
+	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("cd ~/Projects/main/wiki; xst -c wiki -e nvim .") },
 	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("krita") },
-	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("slack") },
+	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("telegram-desktop & slack") },
 	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("xst -c ncspot -e ncspot & xst -c weechat -e weechat") },
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
 	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
