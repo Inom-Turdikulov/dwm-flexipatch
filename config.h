@@ -507,8 +507,7 @@ static const Rule rules[] = {
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "ncspot", .tags = 1 << 8, .switchtag = 1,
-         .isfloating = 1, .floatpos = "100% -1y 400W 100%")
+	RULE(.class = "spotify", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "mpv", .isfloating = 1)
 
@@ -918,12 +917,14 @@ static const Key keys[] = {
 	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("cd ~/Projects/main/wiki; xst -c wiki -e nvim .") },
 	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("krita") },
 	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("telegram-desktop & slack") },
-	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("xst -c ncspot -e ncspot & xst -c weechat -e weechat") },
+	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("spotify") },
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
 	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
 	{ MODKEY,                       XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
 
 	{ 0,				XK_Print,	spawn,		SHCMD("scrcap") },
+	{ Mod3Mask,	XK_Print,	spawn,		SHCMD("scrcap_ocr") },
+
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("scrrec -s ~/recordings/$(date +%F-%T).mp4") },
 	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("scrrec -s ~/recordings/$(date +%F-%T).gif") },
 
@@ -937,10 +938,12 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 
-	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p ncspot play-pause") },
+	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p spotify play-pause") },
 	{ MODKEY, XF86XK_AudioPlay,        spawn, SHCMD("piper_speak") },
-	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p ncspot next") },
-	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p ncspot previous") },
+	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p spotify next") },
+	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p spotify previous") },
+	{ MODKEY|ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p spotify position 10+") },
+	{ MODKEY|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p spotify position 10-") },
 
 	{ Mod1Mask|ShiftMask,                     XK_Return,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
 	{ MODKEY|ControlMask,           XK_Return,     spawn,                  {.v = termcmd } },
