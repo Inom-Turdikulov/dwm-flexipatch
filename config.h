@@ -499,12 +499,17 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-	RULE(.instance = "brave-browser", .tags = 1 << 1, .switchtag = 1)
-	RULE(.class = "newsboat", .tags = 1 << 1, .switchtag = 1)
+	RULE(.title = "Event Tester", .isfloating = 1) // xev
+
+	RULE(.class = "firefox", .tags = 1 << 1, .switchtag = 1)
 	RULE(.class = "chatgpt", .tags = 1 << 2, .switchtag = 1)
 	RULE(.class = "trans", .tags = 1 << 2, .switchtag = 1)
 	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
+	RULE(.class = "obsidian", .tags = 1 << 3, .switchtag = 1)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
+
+	RULE(.class = "newsboat", .tags = 1 << 6, .switchtag = 1)
+	RULE(.class = "zotero", .tags = 1 << 6, .switchtag = 1)
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
 	RULE(.class = "spotify", .tags = 1 << 8, .switchtag = 1)
@@ -512,8 +517,8 @@ static const Rule rules[] = {
 	RULE(.class = "mpv", .isfloating = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
-	RULE(.title = "Picture in picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
-	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1024W 768H")
+	RULE(.title = "PictureInPicture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
+	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 
 
 	#if RENAMED_SCRATCHPADS_PATCH
@@ -731,13 +736,13 @@ static const Layout layouts[] = {
 #else
 static const Layout layouts[] = {
 	/* symbol     arrange function */
+	#if MONOCLE_LAYOUT
+	{ "[M]",      monocle },
+	#endif
 	#if TILE_LAYOUT
 	{ "[]=",      tile },    /* first entry is default */
 	#endif
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	#if MONOCLE_LAYOUT
-	{ "[M]",      monocle },
-	#endif
 	#if BSTACK_LAYOUT
 	{ "TTT",      bstack },
 	#endif
@@ -912,12 +917,20 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	/* Tooglle layout by Meta+Space */
-	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("$BROWSER & xst -c newsboat -e newsboat") },
-	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("xst -c trans -e trans -shell ru:en & sleep 1 && xst -c chatgpt -e chatgpt") },
-	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("cd ~/Projects/main/wiki; xst -c wiki -e nvim .") },
-	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("krita") },
-	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("telegram-desktop & slack") },
-	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("spotify") },
+	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("jumpapp firefox") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_2,       spawn,        SHCMD("jumpapp brave") },
+	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("jumpapp chatgpt-cli") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_3,       spawn,        SHCMD("jumpapp trans-ru") },
+	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("jumpapp wiki") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_4,       spawn,        SHCMD("jumpapp obsidian") },
+	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("jumpapp krita") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_5,       spawn,        SHCMD("jumpapp blender") },
+	{ Mod1Mask|ShiftMask,           XK_7,       spawn,          SHCMD("jumpapp zotero") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_7,       spawn,        SHCMD("jumpapp newsboat-cli") },
+	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("jumpapp -c slack -f gtk-launch slack") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_8,       spawn,        SHCMD("jumpapp telegram-desktop") },
+	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("jumpapp spotify") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_9,       spawn,        SHCMD("jumpapp weechat-cli") },
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
 	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
 	{ MODKEY,                       XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
@@ -938,12 +951,12 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 
-	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p spotify play-pause") },
+	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p $AUDIO_PLAYER play-pause") },
 	{ MODKEY, XF86XK_AudioPlay,        spawn, SHCMD("piper_speak") },
-	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p spotify next") },
-	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p spotify previous") },
-	{ MODKEY|ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p spotify position 10+") },
-	{ MODKEY|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p spotify position 10-") },
+	{ MODKEY, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER next") },
+	{ MODKEY, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER previous") },
+	{ MODKEY|ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10+") },
+	{ MODKEY|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
 
 	{ Mod1Mask|ShiftMask,                     XK_Return,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
 	{ MODKEY|ControlMask,           XK_Return,     spawn,                  {.v = termcmd } },
@@ -1116,9 +1129,9 @@ static const Key keys[] = {
 	#if XRDB_PATCH && !BAR_VTCOLORS_PATCH
 	{ MODKEY|ShiftMask,             XK_F5,         xrdb,                   {.v = NULL } },
 	#endif // XRDB_PATCH
-	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
+	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[0]} },
+	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[2]} },
 	#if COLUMNS_LAYOUT
 	{ MODKEY,                       XK_c,          setlayout,              {.v = &layouts[3]} },
 	#endif // COLUMNS_LAYOUT
