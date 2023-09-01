@@ -509,7 +509,10 @@ static const Rule rules[] = {
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 
 	RULE(.class = "newsboat", .tags = 1 << 6, .switchtag = 1)
-	RULE(.class = "zotero", .tags = 1 << 6, .switchtag = 1)
+
+	RULE(.class = "thunderbird", .tags = 1 << 6, .switchtag = 1)
+	RULE(.instance = "Msgcompose", .isfloating = 1)  // write message dialog
+
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
 	RULE(.class = "spotify", .tags = 1 << 8, .switchtag = 1)
@@ -914,23 +917,31 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
 	{ MODKEY,                       XK_space,          spawn,                  {.v = dmenucmd } },
+	{ MODKEY|ControlMask,           XK_m,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/mounter")  },
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	/* Tooglle layout by Meta+Space */
-	{ Mod1Mask|ShiftMask,           XK_2,       spawn,          SHCMD("jumpapp firefox") },
+	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("jumpapp firefox") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_2,       spawn,        SHCMD("jumpapp brave") },
-	{ Mod1Mask|ShiftMask,           XK_3,       spawn,          SHCMD("jumpapp chatgpt-cli") },
+
+	{ Mod1Mask|ShiftMask,             XK_3,       spawn,        SHCMD("jumpapp chatgpt-cli") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_3,       spawn,        SHCMD("jumpapp trans-ru") },
-	{ Mod1Mask|ShiftMask,           XK_4,       spawn,          SHCMD("jumpapp wiki") },
+
+	{ Mod1Mask|ShiftMask,             XK_4,       spawn,        SHCMD("jumpapp wiki") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_4,       spawn,        SHCMD("jumpapp obsidian") },
-	{ Mod1Mask|ShiftMask,           XK_5,       spawn,          SHCMD("jumpapp krita") },
+
+	{ Mod1Mask|ShiftMask,             XK_5,       spawn,        SHCMD("jumpapp krita") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_5,       spawn,        SHCMD("jumpapp blender") },
-	{ Mod1Mask|ShiftMask,           XK_7,       spawn,          SHCMD("jumpapp zotero") },
+
+	{ Mod1Mask|ShiftMask,             XK_7,       spawn,        SHCMD("jumpapp thunderbird") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_7,       spawn,        SHCMD("jumpapp newsboat-cli") },
-	{ Mod1Mask|ShiftMask,           XK_8,       spawn,          SHCMD("jumpapp -c slack -f gtk-launch slack") },
+
+	{ Mod1Mask|ShiftMask,             XK_8,       spawn,        SHCMD("jumpapp -c slack -f gtk-launch slack") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_8,       spawn,        SHCMD("jumpapp telegram-desktop") },
-	{ Mod1Mask|ShiftMask,           XK_9,       spawn,          SHCMD("jumpapp spotify") },
+
+	{ Mod1Mask|ShiftMask,             XK_9,       spawn,        SHCMD("jumpapp spotify") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_9,       spawn,        SHCMD("jumpapp weechat-cli") },
+
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
 	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
 	{ MODKEY,                       XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
@@ -958,9 +969,10 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10+") },
 	{ MODKEY|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
 
-	{ Mod1Mask|ShiftMask,                     XK_Return,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
-	{ MODKEY|ControlMask,           XK_Return,     spawn,                  {.v = termcmd } },
-	{ MODKEY|ShiftMask|ControlMask, XK_Return,     spawn,                  SHCMD("xterm") },
+	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_1,     spawn,                  SHCMD("pycharm-community") },
+
+	{ Mod1Mask|ShiftMask,           XK_Return,     spawn,             {.v = termcmd } }, // fallback if default term spawn not working
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
