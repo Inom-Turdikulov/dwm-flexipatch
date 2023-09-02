@@ -515,7 +515,7 @@ static const Rule rules[] = {
 
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "spotify", .tags = 1 << 8, .switchtag = 1)
+	RULE(.class = "Spotify", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "mpv", .isfloating = 1)
 
