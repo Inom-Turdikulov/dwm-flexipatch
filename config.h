@@ -520,7 +520,7 @@ static const Rule rules[] = {
 	RULE(.class = "mpv", .isfloating = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
-	RULE(.title = "PictureInPicture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
+	RULE(.title = "Picture-in-Picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 
 
