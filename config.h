@@ -517,6 +517,7 @@ static const Rule rules[] = {
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
 	RULE(.class = "Spotify", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
+	RULE(.class = "ttyper", .isfloating = 1)
 	RULE(.class = "mpv", .isfloating = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
@@ -970,7 +971,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
 
 	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_1,     spawn,                  SHCMD("pycharm-community") },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_1,   spawn,                  SHCMD("ttyper-cli") },
 
 	{ Mod1Mask|ShiftMask,           XK_Return,     spawn,             {.v = termcmd } }, // fallback if default term spawn not working
 	#if RIODRAW_PATCH
