@@ -521,7 +521,6 @@ static const Rule rules[] = {
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.title = "Picture-in-Picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
-	RULE(.class = "ttyper", .isfloating = 1, .floatpos = "300x 120y 1152W 864H")
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 
 
@@ -971,7 +970,6 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
 
 	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_1,   spawn,                  SHCMD("ttyper-cli") },
 
 	{ Mod1Mask|ShiftMask,           XK_Return,     spawn,             {.v = termcmd } }, // fallback if default term spawn not working
 	#if RIODRAW_PATCH
