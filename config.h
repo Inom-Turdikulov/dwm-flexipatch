@@ -971,7 +971,6 @@ static const Key keys[] = {
 
 	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
 
-	{ Mod1Mask|ShiftMask,           XK_Return,     spawn,             {.v = termcmd } }, // fallback if default term spawn not working
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
