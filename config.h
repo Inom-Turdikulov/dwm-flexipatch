@@ -952,7 +952,7 @@ static const Key keys[] = {
 
 	{ MODKEY,			XK_Print,	spawn,		    SHCMD("notify-send 'MP4 soundelss screencast' && scrrec -s ~/Videos/record/$(date +%F-%T).mp4") },
 	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("notify-send 'GIF soundelss screencast' && scrrec -s ~/Videos/record/$(date +%F-%T).gif") },
-	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("obs --startrecording") },
+	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("recording") },
 
  //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
 	//
