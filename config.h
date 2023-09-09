@@ -522,7 +522,7 @@ static const Rule rules[] = {
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.title = "Picture-in-Picture", .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
-
+	RULE(.class = "obs", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 
 	#if RENAMED_SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
@@ -950,8 +950,9 @@ static const Key keys[] = {
 	{ 0,				XK_Print,	spawn,		SHCMD("scrcap") },
 	{ Mod3Mask,	XK_Print,	spawn,		SHCMD("scrcap_ocr") },
 
-	{ MODKEY,			XK_Print,	spawn,		    SHCMD("scrrec -s ~/Videos/record/$(date +%F-%T).mp4") },
-	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("scrrec -s ~/Videos/record/$(date +%F-%T).gif") },
+	{ MODKEY,			XK_Print,	spawn,		    SHCMD("notify-send 'MP4 soundelss screencast' && scrrec -s ~/Videos/record/$(date +%F-%T).mp4") },
+	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("notify-send 'GIF soundelss screencast' && scrrec -s ~/Videos/record/$(date +%F-%T).gif") },
+	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("obs --startrecording") },
 
  //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
 	//
