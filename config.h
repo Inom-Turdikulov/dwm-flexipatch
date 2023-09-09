@@ -950,8 +950,8 @@ static const Key keys[] = {
 	{ 0,				XK_Print,	spawn,		SHCMD("scrcap") },
 	{ Mod3Mask,	XK_Print,	spawn,		SHCMD("scrcap_ocr") },
 
-	{ MODKEY,			XK_Print,	spawn,		SHCMD("scrrec -s ~/recordings/$(date +%F-%T).mp4") },
-	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("scrrec -s ~/recordings/$(date +%F-%T).gif") },
+	{ MODKEY,			XK_Print,	spawn,		    SHCMD("scrrec -s ~/Videos/record/$(date +%F-%T).mp4") },
+	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("scrrec -s ~/Videos/record/$(date +%F-%T).gif") },
 
  //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
 	//
