@@ -920,6 +920,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_m,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/mounter")  },
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
+	{ MODKEY, XK_c,          spawn,             SHCMD("tplay")  },
 	/* Tooglle layout by Meta+Space */
 	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("jumpapp firefox") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_2,       spawn,        SHCMD("jumpapp brave") },
