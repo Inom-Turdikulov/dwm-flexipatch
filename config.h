@@ -920,6 +920,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_m,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/mounter")  },
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
+	{ MODKEY,                       XK_v,          spawn,                  SHCMD("url2text|xclip -selection clipboard -in; xdotool key --clearmodifiers ctrl+shift+v")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	{ MODKEY, XK_c,          spawn,             SHCMD("tplay")  },
 	/* Tooglle layout by Meta+Space */
