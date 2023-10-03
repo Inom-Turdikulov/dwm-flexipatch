@@ -521,7 +521,7 @@ static const Rule rules[] = {
 	RULE(.class = "mpv", .isfloating = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
-	RULE(.instance = "Toolkit", .tags = 1 << 0, .switchtag = 1, .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
+	RULE(.instance = "Toolkit", .tags = 0 << 0, .switchtag = 1, .isfloating = 1, .floatpos = "9999x 9999y 496W 279H")
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 	RULE(.class = "l2.exe", .isfloating = 1)
 
