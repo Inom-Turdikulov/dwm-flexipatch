@@ -514,7 +514,6 @@ static const Rule rules[] = {
 	RULE(.instance = "Msgcompose", .isfloating = 1)  // write message dialog
 
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "obs", .tags = 1 << 7, .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
 	RULE(.class = "Spotify", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
