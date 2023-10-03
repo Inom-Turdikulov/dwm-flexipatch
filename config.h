@@ -495,6 +495,7 @@ static const Rule rules[] = {
 	 *	WM_WINDOW_ROLE(STRING) = role
 	 *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
 	 */
+	RULE(.instance = "obsidian", .tags = 1 << 3, .switchtag = 1, .isfloating = 0)
 	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
@@ -505,7 +506,6 @@ static const Rule rules[] = {
 	RULE(.class = "chatgpt", .tags = 1 << 2, .switchtag = 1)
 	RULE(.class = "trans", .tags = 1 << 2, .switchtag = 1)
 	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
-	RULE(.class = "obsidian", .tags = 1 << 3, .switchtag = 1, .isfloating = 0)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 
 	RULE(.class = "newsboat", .tags = 1 << 6, .switchtag = 1)
