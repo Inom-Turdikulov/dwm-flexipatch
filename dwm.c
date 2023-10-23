@@ -75,7 +75,7 @@
 #define Button7                 7
 #define Button8                 8
 #define Button9                 9
-#define NUMTAGS                 9
+#define NUMTAGS                 12
 #define NUMVIEWHIST             NUMTAGS
 #define BARRULES                20
 #if TAB_PATCH
@@ -1862,7 +1862,7 @@ void
 drawbar(Monitor *m)
 {
 	Bar *bar;
-	
+
 	#if !BAR_FLEXWINTITLE_PATCH
 	if (m->showbar)
 	#endif // BAR_FLEXWINTITLE_PATCH
