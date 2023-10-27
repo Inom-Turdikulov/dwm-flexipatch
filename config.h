@@ -1370,6 +1370,8 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_F1,                                 9)
 	TAGKEYS(                        XK_F2,                                 10)
 	TAGKEYS(                        XK_F3,                                 11)
+	TAGKEYS(                        XK_F4,                                 12)
+	TAGKEYS(                        XK_F5,                                 13)
 };
 
 #if KEYMODES_PATCH
