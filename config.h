@@ -512,6 +512,7 @@ static const Rule rules[] = {
 
 	RULE(.class = "thunderbird", .tags = 1 << 6, .switchtag = 1)
 	RULE(.instance = "Msgcompose", .isfloating = 1)  // write message dialog
+	RULE(.class = "PureRef", .isfloating = 1)
 
 	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
 	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
