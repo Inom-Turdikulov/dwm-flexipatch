@@ -923,7 +923,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	{ MODKEY, XK_c,          spawn,             SHCMD("tplay")  },
 	/* Tooglle layout by Meta+Space */
-	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("jumpapp firefox") },
+	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("firefox") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_2,       spawn,        SHCMD("jumpapp brave") },
 
 	{ Mod1Mask|ShiftMask,             XK_3,       spawn,        SHCMD("jumpapp chatgpt-cli") },
