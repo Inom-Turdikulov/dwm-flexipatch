@@ -523,7 +523,8 @@ static const Rule rules[] = {
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.instance = "Toolkit", .isfloating = 1, .floatpos = "9999x 0y 355W 200H")
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
-	RULE(.class = "l2.exe", .isfloating = 1)
+
+	RULE(.instance = "calibre-gui", .tags = 1 << 13, .switchtag = 1)
 
 	#if RENAMED_SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
