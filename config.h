@@ -412,9 +412,11 @@ static const char *const autostart[] = {
 static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"scratch", NULL };
+const char *spcmd2[] = {"calc", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
+   {"calc",        spcmd2},
 };
 #endif // SCRATCHPADS_PATCH
 
@@ -522,7 +524,6 @@ static const Rule rules[] = {
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
 	RULE(.instance = "Toolkit", .isfloating = 1, .floatpos = "9999x 0y 355W 200H")
-	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 
 	RULE(.instance = "calibre-gui", .tags = 1 << 13, .switchtag = 1)
 
@@ -530,6 +531,8 @@ static const Rule rules[] = {
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
 	#elif SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
+	RULE(.class = "calc", .tags = SPTAG(1), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 	#endif // SCRATCHPADS_PATCH
 };
 
@@ -1180,8 +1183,9 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
 	#elif SCRATCHPADS_PATCH
 	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
-	{ MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
-	{ MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
+	{ MODKEY|ControlMask,           XK_grave,      togglescratch,          {.ui = 1 } },
+	// { MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
+	// { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
 	#endif // SCRATCHPADS_PATCH | RENAMED_SCRATCHPADS_PATCH
 	#if UNFLOATVISIBLE_PATCH
 	{ MODKEY|Mod4Mask,              XK_space,      unfloatvisible,         {0} },
@@ -1309,7 +1313,7 @@ static const Key keys[] = {
 	/* Note that due to key limitations the below example kybindings are defined with a Mod3Mask,
 	 * which is not always readily available. Refer to the patch wiki for more details. */
 	/* Client position is limited to monitor window area */
-	{ Mod3Mask|Mod1Mask,                     XK_w,            floatpos,               {.v = "-26x -26y" } }, // ↖
+	{ Mod3Mask|Mod1Mask,                     XK_w,            floatpos,               {.v = "-25x -26y" } }, // ↖
 	{ Mod3Mask|Mod1Mask,                     XK_f,            floatpos,               {.v = "  0x -26y" } }, // ↑
 	{ Mod3Mask|Mod1Mask,                     XK_p,            floatpos,               {.v = " 26x -26y" } }, // ↗
 	{ Mod3Mask|Mod1Mask,                     XK_r,            floatpos,               {.v = "-26x   0y" } }, // ←
