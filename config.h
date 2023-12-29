@@ -413,7 +413,7 @@ static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"scratch", NULL };
 const char *spcmd2[] = {"calc", NULL };
-const char *spcmd2[] = {"obsidian", NULL };
+const char *spcmd3[] = {"obsidian", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
