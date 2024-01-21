@@ -413,12 +413,10 @@ static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"scratch", NULL };
 const char *spcmd2[] = {"calc", NULL };
-const char *spcmd3[] = {"obsidian", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
    {"calc",        spcmd2},
-   {"obsidian",    spcmd3},
 };
 #endif // SCRATCHPADS_PATCH
 
@@ -509,6 +507,7 @@ static const Rule rules[] = {
 	RULE(.class = "chatgpt", .tags = 1 << 2, .switchtag = 1)
 	RULE(.class = "trans", .tags = 1 << 2, .switchtag = 1)
 	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
+	RULE(.class = "obsidian", .tags = 1 << 3, .switchtag = 1)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 
 	RULE(.class = "newsboat", .tags = 1 << 6, .switchtag = 1)
@@ -534,7 +533,6 @@ static const Rule rules[] = {
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
 	RULE(.class = "calc", .tags = SPTAG(1), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
-	RULE(.class = "obsidian", .tags = SPTAG(2), .isfloating = 1, .floatpos = "9999x 0y 1152W 864H")
 	#endif // SCRATCHPADS_PATCH
 };
 
