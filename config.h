@@ -964,8 +964,8 @@ static const Key keys[] = {
 	//
 	// /* scrcpy remote */
 	// { MODKEY|ShiftMask, XF86XK_AudioPlay,        spawn, SHCMD("speak.sh") },
-	// { MODKEY|ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("xdotool search --classname scrcpy  key Right") },
-	// { MODKEY|ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("xdotool search --classname scrcpy  key Left") },
+	{ MODKEY|ShiftMask, XK_d, spawn, SHCMD("xdotool search --classname scrcpy  key space") },
+	{ MODKEY|ShiftMask, XK_u, spawn, SHCMD("xdotool search --classname scrcpy  key shift+space") },
 
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
