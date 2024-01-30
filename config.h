@@ -961,12 +961,11 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("$DOTFILES_BIN/rofi/record") },
 
  //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
-	//
 	// /* scrcpy remote */
 	// { MODKEY|ShiftMask, XF86XK_AudioPlay,        spawn, SHCMD("speak.sh") },
-	{ MODKEY, XK_d, spawn, SHCMD("xdotool search --classname scrcpy  key Page_Down") },
-	{ MODKEY, XK_u, spawn, SHCMD("xdotool search --classname scrcpy  key Page_Up") },
-	{ MODKEY|ShiftMask, XK_p, spawn, SHCMD("xdotool search --classname scrcpy  key space") },
+	{ MODKEY, XK_d, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped key Page_Down") },
+	{ MODKEY, XK_u, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped  key Page_Up") },
+	{ MODKEY|ShiftMask, XK_p, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped  key space") },
 
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
