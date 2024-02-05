@@ -509,9 +509,7 @@ static const Rule rules[] = {
 	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
 	RULE(.class = "obsidian", .tags = 1 << 3, .switchtag = 1)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
-
-	RULE(.class = "newsboat", .tags = 1 << 6, .switchtag = 1)
-
+	RULE(.class = ".scrcpy-wrapped", .tags = 1 << 5, .switchtag = 1)
 	RULE(.class = "thunderbird", .tags = 1 << 6, .switchtag = 1)
 	RULE(.instance = "Msgcompose", .isfloating = 1)  // write message dialog
 	RULE(.class = "PureRef", .isfloating = 1)
@@ -939,6 +937,8 @@ static const Key keys[] = {
 
 	{ Mod1Mask|ShiftMask,             XK_5,       spawn,        SHCMD("jumpapp krita") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_5,       spawn,        SHCMD("jumpapp blender") },
+
+	{ Mod1Mask|ShiftMask,             XK_6,       spawn,        SHCMD("jumpapp -c .scrcpy-wrapped -f scrcpy --hid-keyboard") },
 
 	{ Mod1Mask|ShiftMask,             XK_7,       spawn,        SHCMD("jumpapp thunderbird") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_7,       spawn,        SHCMD("jumpapp newsboat-cli") },
