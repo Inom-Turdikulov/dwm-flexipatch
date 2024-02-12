@@ -970,13 +970,14 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
 
-	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p mpv play-pause") },
-	{ Mod1Mask, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p firefox play-pause") },
-	{ ControlMask, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p $AUDIO_PLAYER play-pause") },
+	{ ControlMask, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p firefox play-pause") },
+
+	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p $AUDIO_PLAYER play-pause") },
 	{ ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER next") },
 	{ ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER previous") },
 	{ ShiftMask|ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10+") },
 	{ ShiftMask|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
+
 	{ MODKEY, XF86XK_AudioPlay,        spawn, SHCMD("piper_speak") },
 
 	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
