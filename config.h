@@ -453,9 +453,9 @@ static char tagicons[][NUMTAGS][MAX_TAGLEN] =
 static char *tagicons[][NUMTAGS] =
 #endif // NAMETAG_PATCH
 {
-	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "F1", "F2", "F3", "F4", "F5" },
-	[ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",  "K",  "L",  "M",  "N" },
-	[ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>", "<F1>", "<F2>", "<F3>", "<F4>", "<F5>" },
+	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+	[ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I"},
+	[ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>"},
 };
 
 #if BAR_TAGGRID_PATCH
@@ -504,10 +504,6 @@ static const Rule rules[] = {
 	RULE(.title = "Event Tester", .isfloating = 1) // xev
 
 	RULE(.class = "firefox", .tags = 1 << 1, .switchtag = 1)
-	RULE(.class = "chatgpt", .tags = 1 << 2, .switchtag = 1)
-	RULE(.class = "trans", .tags = 1 << 2, .switchtag = 1)
-	RULE(.class = "wiki", .tags = 1 << 3, .switchtag = 1)
-	RULE(.class = "obsidian", .tags = 1 << 3, .switchtag = 1)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 	RULE(.class = ".scrcpy-wrapped", .tags = 1 << 5, .switchtag = 1)
 	RULE(.class = "thunderbird", .tags = 1 << 6, .switchtag = 1)
@@ -529,8 +525,8 @@ static const Rule rules[] = {
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
 	#elif SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
-	RULE(.class = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
-	RULE(.class = "calc", .tags = SPTAG(1), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
+	RULE(.instance = "scratch", .tags = SPTAG(0), .isfloating = 1, .floatpos = "9999x 9999y 1152W 864H")
+	RULE(.instance = "calc", .tags = SPTAG(1), .isfloating = 1, .floatpos = "9999x 9999y 800W 600H")
 	#endif // SCRATCHPADS_PATCH
 };
 
@@ -742,11 +738,11 @@ static const Layout layouts[] = {
 #else
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	#if MONOCLE_LAYOUT
-	{ "[M]",      monocle },
-	#endif
 	#if TILE_LAYOUT
 	{ "[]=",      tile },    /* first entry is default */
+	#endif
+	#if MONOCLE_LAYOUT
+	{ "[M]",      monocle },
 	#endif
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	#if BSTACK_LAYOUT
@@ -888,7 +884,7 @@ static const char *dmenucmd[] = {
 	"$DOTFILES_BIN/rofi/appmenu",
 	NULL
 };
-static const char *termcmd[]  = { "/bin/sh", "-c", "xst", NULL };
+static const char *termcmd[]  = { "/bin/sh", "-c", "$TERMINAL", NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -921,19 +917,20 @@ static const Key keys[] = {
 	#endif // KEYMODES_PATCH
 	{ MODKEY,                       XK_space,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_m,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/mounter")  },
+	{ MODKEY|ControlMask,           XK_h,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/browsermenu history")  },
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
 	{ MODKEY,                       XK_v,          spawn,                  SHCMD("url2text|xclip -selection clipboard -in; xdotool key --clearmodifiers ctrl+shift+v")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
 	{ MODKEY, XK_c,          spawn,             SHCMD("tplay")  },
+    /* Interact with entr */
+	{ MODKEY, XK_F1, spawn, SHCMD("echo 0 > /tmp/.entr_1") },
+	{ MODKEY, XK_F2, spawn, SHCMD("echo 0 > /tmp/.entr_2") },
+	{ MODKEY, XK_F3, spawn, SHCMD("echo 0 > /tmp/.entr_3") },
+	{ MODKEY, XK_F4, spawn, SHCMD("echo 0 > /tmp/.entr_4") },
+
 	/* Tooglle layout by Meta+Space */
-	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("firefox") },
+	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("jumpapp firefox") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_2,       spawn,        SHCMD("jumpapp brave") },
-
-	{ Mod1Mask|ShiftMask,             XK_3,       spawn,        SHCMD("jumpapp chatgpt-cli") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_3,       spawn,        SHCMD("jumpapp trans-ru") },
-
-	{ Mod1Mask|ShiftMask,             XK_4,       spawn,        SHCMD("jumpapp wiki") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_4,       spawn,        SHCMD("jumpapp obsidian") },
 
 	{ Mod1Mask|ShiftMask,             XK_5,       spawn,        SHCMD("jumpapp krita") },
 	{ Mod1Mask|ShiftMask|ControlMask, XK_5,       spawn,        SHCMD("jumpapp blender") },
@@ -950,8 +947,8 @@ static const Key keys[] = {
 	{ Mod1Mask|ShiftMask|ControlMask, XK_9,       spawn,        SHCMD("jumpapp weechat-cli") },
 
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
-	{ MODKEY,                       XK_slash,      spawn,       SHCMD("$DOTFILES_BIN/rofi/filemenu") },
-	{ MODKEY|ShiftMask,                       XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
+	{ MODKEY,                       XK_slash,  spawn,           SHCMD("$DOTFILES_BIN/rofi/filemenu") },
+	{ MODKEY|ShiftMask,             XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
 
 	{ 0,				XK_Print,	spawn,		SHCMD("scrcap") },
 	{ Mod3Mask,	XK_Print,	spawn,		SHCMD("scrcap_ocr") },
@@ -963,8 +960,8 @@ static const Key keys[] = {
  //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
 	// /* scrcpy remote */
 	// { MODKEY|ShiftMask, XF86XK_AudioPlay,        spawn, SHCMD("speak.sh") },
-	{ MODKEY, XK_d, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped key Page_Down") },
-	{ MODKEY, XK_u, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped  key Page_Up") },
+	{ MODKEY, XK_d, spawn, SHCMD("xdotool search --classname sioyek key Page_Down") },
+	{ MODKEY, XK_u, spawn, SHCMD("xdotool search --classname sioyek  key Page_Up") },
 	{ MODKEY|ShiftMask, XK_p, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped  key space") },
 
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
@@ -980,7 +977,7 @@ static const Key keys[] = {
 
 	{ MODKEY, XF86XK_AudioPlay,        spawn, SHCMD("piper_speak") },
 
-	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("xst -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
+	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("$TERMINAL -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
 
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
@@ -1036,8 +1033,8 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_i,          incnstack,              {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_u,          incnstack,              {.i = -1 } },
 	#endif // FLEXTILE_DELUXE_LAYOUT
-	{ MODKEY|ShiftMask,                       XK_l,          setmfact,               {.f = -0.05} },
-	{ MODKEY|ShiftMask,                       XK_h,          setmfact,               {.f = +0.05} },
+	{ MODKEY|ShiftMask,                       XK_l,          setmfact,               {.f = -0.02} },
+	{ MODKEY|ShiftMask,                       XK_h,          setmfact,               {.f = +0.02} },
 	#if CFACTS_PATCH
 	{ MODKEY|ShiftMask,             XK_h,          setcfact,               {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,          setcfact,               {.f = -0.25} },
@@ -1150,9 +1147,9 @@ static const Key keys[] = {
 	#if XRDB_PATCH && !BAR_VTCOLORS_PATCH
 	{ MODKEY|ShiftMask,             XK_F5,         xrdb,                   {.v = NULL } },
 	#endif // XRDB_PATCH
-	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[0]} },
-	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[1]} },
-	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[2]} },
+	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
+	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
+	// { MODKEY,                       XK_f,          setlayout,              {.v = &layouts[2]} },
 	#if COLUMNS_LAYOUT
 	{ MODKEY,                       XK_c,          setlayout,              {.v = &layouts[3]} },
 	#endif // COLUMNS_LAYOUT
@@ -1185,8 +1182,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
 	#elif SCRATCHPADS_PATCH
 	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
-	{ MODKEY|ControlMask,           XK_grave,      togglescratch,          {.ui = 1 } },
-	{ MODKEY|ShiftMask,             XK_grave,      togglescratch,          {.ui = 2 } },
+	{ MODKEY,                       XK_equal,      togglescratch,          {.ui = 1 } },
 	// { MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
 	// { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
 	#endif // SCRATCHPADS_PATCH | RENAMED_SCRATCHPADS_PATCH
@@ -1195,7 +1191,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,          unfloatvisible,         {.v = &layouts[0]} },
 	#endif // UNFLOATVISIBLE_PATCH
 	#if TOGGLEFULLSCREEN_PATCH
-	{ MODKEY,                       XK_y,          togglefullscreen,       {0} },
+	{ MODKEY,                       XK_f,          togglefullscreen,       {0} },
 	#endif // TOGGLEFULLSCREEN_PATCH
 	#if !FAKEFULLSCREEN_PATCH && FAKEFULLSCREEN_CLIENT_PATCH
 	{ MODKEY|ShiftMask,             XK_y,          togglefakefullscreen,   {0} },
@@ -1377,11 +1373,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                                  6)
 	TAGKEYS(                        XK_8,                                  7)
 	TAGKEYS(                        XK_9,                                  8)
-	TAGKEYS(                        XK_F1,                                 9)
-	TAGKEYS(                        XK_F2,                                 10)
-	TAGKEYS(                        XK_F3,                                 11)
-	TAGKEYS(                        XK_F4,                                 12)
-	TAGKEYS(                        XK_F5,                                 13)
 };
 
 #if KEYMODES_PATCH
