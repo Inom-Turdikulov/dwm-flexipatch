@@ -504,16 +504,13 @@ static const Rule rules[] = {
 	RULE(.title = "Event Tester", .isfloating = 1) // xev
 
 	RULE(.class = "firefox", .tags = 1 << 1, .switchtag = 1)
+	RULE(.instance = "slack", .tags = 1 << 3, .switchtag = 1)
+	RULE(.instance = "cmus", .tags = 1 << 4, .switchtag = 1)
 	RULE(.instance = "krita", .tags = 1 << 4, .switchtag = 1)
 	RULE(.class = ".scrcpy-wrapped", .tags = 1 << 5, .switchtag = 1)
 	RULE(.class = "thunderbird", .tags = 1 << 6, .switchtag = 1)
 	RULE(.instance = "Msgcompose", .isfloating = 1)  // write message dialog
-	RULE(.class = "PureRef", .isfloating = 1)
 
-	RULE(.instance = "slack", .tags = 1 << 7, .switchtag = 1)
-	RULE(.instance = "telegram-desktop", .tags = 1 << 7, .switchtag = 1)
-	RULE(.class = "Spotify", .tags = 1 << 8, .switchtag = 1)
-	RULE(.class = "weechat", .tags = 1 << 8, .switchtag = 1)
 	RULE(.class = "mpv", .isfloating = 1)
 
 	// https://github.com/bakkeby/patches/wiki/floatpos/#example-client-rules floatpos example
@@ -884,7 +881,7 @@ static const char *dmenucmd[] = {
 	"$DOTFILES_BIN/rofi/appmenu",
 	NULL
 };
-static const char *termcmd[]  = { "/bin/sh", "-c", "$TERMINAL", NULL };
+static const char *termcmd[]  = { "wezterm", "start", "mux", NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -921,7 +918,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD("$DOTFILES_BIN/rofi/passmenu")  },
 	{ MODKEY,                       XK_v,          spawn,                  SHCMD("url2text|xclip -selection clipboard -in; xdotool key --clearmodifiers ctrl+shift+v")  },
 	{ MODKEY|ControlMask|ShiftMask, XK_Delete,          spawn,             SHCMD("$DOTFILES_BIN/rofi/powermenu")  },
-	{ MODKEY, XK_c,          spawn,             SHCMD("tplay")  },
+	{ MODKEY, XK_o,                 spawn,             SHCMD("tplay")  },
     /* Interact with entr */
 	{ MODKEY, XK_F1, spawn, SHCMD("echo 0 > /tmp/.entr_1") },
 	{ MODKEY, XK_F2, spawn, SHCMD("echo 0 > /tmp/.entr_2") },
@@ -929,26 +926,8 @@ static const Key keys[] = {
 	{ MODKEY, XK_F4, spawn, SHCMD("echo 0 > /tmp/.entr_4") },
 
 	/* Tooglle layout by Meta+Space */
-	{ Mod1Mask|ShiftMask,             XK_2,       spawn,        SHCMD("jumpapp firefox") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_2,       spawn,        SHCMD("jumpapp brave") },
-
-	{ Mod1Mask|ShiftMask,             XK_5,       spawn,        SHCMD("jumpapp krita") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_5,       spawn,        SHCMD("jumpapp blender") },
-
-	{ Mod1Mask|ShiftMask,             XK_6,       spawn,        SHCMD("jumpapp -c .scrcpy-wrapped -f scrcpy --hid-keyboard") },
-
-	{ Mod1Mask|ShiftMask,             XK_7,       spawn,        SHCMD("jumpapp thunderbird") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_7,       spawn,        SHCMD("jumpapp newsboat-cli") },
-
-	{ Mod1Mask|ShiftMask,             XK_8,       spawn,        SHCMD("jumpapp -c slack -f gtk-launch slack") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_8,       spawn,        SHCMD("jumpapp telegram-desktop") },
-
-	{ Mod1Mask|ShiftMask,             XK_9,       spawn,        SHCMD("jumpapp spotify") },
-	{ Mod1Mask|ShiftMask|ControlMask, XK_9,       spawn,        SHCMD("jumpapp weechat-cli") },
-
 	{ MODKEY,                       XK_a,      spawn,           SHCMD("$DOTFILES_BIN/rofi/windowmenu") },
-	{ MODKEY,                       XK_slash,  spawn,           SHCMD("$DOTFILES_BIN/rofi/filemenu") },
-	{ MODKEY|ShiftMask,             XK_u,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
+	{ MODKEY,                       XK_c,      spawn,           SHCMD("$DOTFILES_BIN/rofi/unicode") },
 
 	{ 0,				XK_Print,	spawn,		SHCMD("scrcap") },
 	{ Mod3Mask,	XK_Print,	spawn,		SHCMD("scrcap_ocr") },
@@ -957,27 +936,33 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,	XK_Print,	spawn,		SHCMD("notify-send 'GIF soundelss screencast' && scrrec -s ~/Videos/record/$(date +%F-%T).gif") },
 	{ MODKEY|ShiftMask,	XK_Print,	spawn,		SHCMD("$DOTFILES_BIN/rofi/record") },
 
- //    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
-	// /* scrcpy remote */
-	// { MODKEY|ShiftMask, XF86XK_AudioPlay,        spawn, SHCMD("speak.sh") },
+    { MODKEY, XK_t, spawn, SHCMD("maim -s | tesseract stdin stdout | crow -p -i -t en+ru") },
+
+	// Control PDF viewer from different window (when viewer window is not focused)
 	{ MODKEY, XK_d, spawn, SHCMD("xdotool search --classname sioyek key Page_Down") },
 	{ MODKEY, XK_u, spawn, SHCMD("xdotool search --classname sioyek  key Page_Up") },
 	{ MODKEY|ShiftMask, XK_p, spawn, SHCMD("xdotool search --classname .scrcpy-wrapped  key space") },
 
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 5%+;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;notify-send -t 300 -u low $(wpctl get-volume @DEFAULT_AUDIO_SINK@)") },
+	{ MODKEY, XF86XK_AudioPlay,      spawn, SHCMD("piper_speak") },
+	{ 0, XF86XK_AudioPlay,           spawn, SHCMD("playerctl -p $AUDIO_PLAYER play-pause") },
+	{ ControlMask, XF86XK_AudioPlay, spawn, SHCMD("playerctl -p mpv play-pause") },
+	{ ShiftMask, XF86XK_AudioPlay,   spawn, SHCMD("playerctl -p firefox play-pause") },
 
-	{ ControlMask, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p mpv play-pause") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("notify_volume 5 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("notify_volume -5 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") },
+	{ ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
+	{ ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10+") },
+	{ ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p mpv position 10-") },
+	{ ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p mpv position 10+") },
 
-	{ 0, XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p $AUDIO_PLAYER play-pause") },
-	{ ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER next") },
-	{ ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER previous") },
-	{ ShiftMask|ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10+") },
-	{ ShiftMask|ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("playerctl -p $AUDIO_PLAYER position 10-") },
+	{ 0, XF86XK_AudioNext, spawn, SHCMD("playerctl -p $AUDIO_PLAYER next") },
+	{ 0, XF86XK_AudioPrev, spawn, SHCMD("playerctl -p $AUDIO_PLAYER previous") },
+	{ ControlMask, XF86XK_AudioNext, spawn, SHCMD("playerctl -p firefox next") },
+	{ ControlMask, XF86XK_AudioPrev, spawn, SHCMD("playerctl -p firefox previous") },
+	{ ShiftMask, XF86XK_AudioNext, spawn, SHCMD("playerctl -p firefox next") },
+	{ ShiftMask, XF86XK_AudioPrev, spawn, SHCMD("playerctl -p firefox previous") },
 
-	{ MODKEY, XF86XK_AudioPlay,        spawn, SHCMD("piper_speak") },
-
-	{ Mod1Mask|ShiftMask,           XK_1,     spawn,                  SHCMD("$TERMINAL -e bash -c \"(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux\"") },
+	{ MODKEY|ShiftMask, XK_Return, spawn, {.v = termcmd } },
 
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
@@ -1028,7 +1013,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_k,          pushup,                 {0} },
 	#endif // PUSH_PATCH / PUSH_NO_MASTER_PATCH
 	{ MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
-	{ MODKEY,                       XK_d,          incnmaster,             {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,          incnmaster,             {.i = -1 } },
 	#if FLEXTILE_DELUXE_LAYOUT
 	{ MODKEY|ControlMask,           XK_i,          incnstack,              {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_u,          incnstack,              {.i = -1 } },
@@ -1148,8 +1133,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_F5,         xrdb,                   {.v = NULL } },
 	#endif // XRDB_PATCH
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
-	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
-	// { MODKEY,                       XK_f,          setlayout,              {.v = &layouts[2]} },
+	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[1]} },
+	{ MODKEY,                       XK_y,          setlayout,              {.v = &layouts[2]} },
 	#if COLUMNS_LAYOUT
 	{ MODKEY,                       XK_c,          setlayout,              {.v = &layouts[3]} },
 	#endif // COLUMNS_LAYOUT
@@ -1181,8 +1166,8 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_grave,      setscratch,             {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
 	#elif SCRATCHPADS_PATCH
-	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
-	{ MODKEY,                       XK_equal,      togglescratch,          {.ui = 1 } },
+	{ MODKEY,                       XK_grave,    togglescratch,          {.ui = 0 } },
+	{ MODKEY|ShiftMask,             XK_grave,    togglescratch,          {.ui = 1 } },
 	// { MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
 	// { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
 	#endif // SCRATCHPADS_PATCH | RENAMED_SCRATCHPADS_PATCH
